@@ -89,4 +89,13 @@ SET active = false
 WHERE (path ~ '(enterprise|web_studio|helpdesk|documents|knowledge|spreadsheet|sign|planning|voip)')
    OR (name ~ '(enterprise|studio|helpdesk|documents|knowledge|spreadsheet|sign|planning|voip)');
 
+-- Disable known migrated inherited views that reference removed enterprise fields.
+UPDATE ir_ui_view
+SET active = false
+WHERE id IN (
+    4970, -- res.users.form.sign.inherit (res.users.sign_signature)
+    5533, -- res.users.preferences.form.sign.inherit (res.users.sign_signature)
+    6110  -- res.users.view.form.inherit.documents (res.users.document_count)
+);
+
 COMMIT;
