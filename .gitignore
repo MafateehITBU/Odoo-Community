@@ -14,6 +14,24 @@ migration_work/db/
 # Large/local tooling outputs
 tools/
 migration_work/
+odoo-18-community/*
+!odoo-18-community/addons/
+odoo-18-community/addons/*
+!odoo-18-community/addons/account/
+!odoo-18-community/addons/l10n_jo_edi/
+!odoo-18-community/addons/sale/
+odoo-18-community/addons/account/*
+odoo-18-community/addons/l10n_jo_edi/*
+odoo-18-community/addons/sale/*
+!odoo-18-community/addons/account/models/
+!odoo-18-community/addons/l10n_jo_edi/models/
+!odoo-18-community/addons/sale/models/
+odoo-18-community/addons/account/models/*
+odoo-18-community/addons/l10n_jo_edi/models/*
+odoo-18-community/addons/sale/models/*
+!odoo-18-community/addons/account/models/account_move.py
+!odoo-18-community/addons/l10n_jo_edi/models/account_edi_xml_ubl_21_jo.py
+!odoo-18-community/addons/sale/models/sale_order.py
 
 # Keep migration scripts tracked
 !migration/
