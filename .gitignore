@@ -1,0 +1,19 @@
+.DS_Store
+.vscode/
+.venv/
+.odoo-data/
+__pycache__/
+*.pyc
+
+# Local backups and dumps
+*.zip
+*.dump
+migration_work/backups/
+migration_work/db/
+
+# Large/local tooling outputs
+tools/
+migration_work/
+
+# Keep migration scripts tracked
+!migration/
