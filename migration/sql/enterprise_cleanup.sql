@@ -95,7 +95,9 @@ SET active = false
 WHERE id IN (
     4970, -- res.users.form.sign.inherit (res.users.sign_signature)
     5533, -- res.users.preferences.form.sign.inherit (res.users.sign_signature)
-    6110  -- res.users.view.form.inherit.documents (res.users.document_count)
+    6110, -- res.users.view.form.inherit.documents (res.users.document_count)
+    6059, -- account.move.form studio extension referencing discount_total
+    5416  -- l10n_gcc_invoice.arabic_english_invoice referencing discount_total
 );
 
 COMMIT;
