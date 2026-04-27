@@ -100,4 +100,23 @@ WHERE id IN (
     5416  -- l10n_gcc_invoice.arabic_english_invoice referencing discount_total
 );
 
+-- Ensure standard invoice report can render Saudi/ZATCA QR for paid invoices too.
+UPDATE ir_ui_view
+SET arch_db = regexp_replace(
+    arch_db::text,
+    't-value=\\"o\.display_qr_code and o\.amount_residual &gt; 0\\"',
+    't-value=\\"((''l10n_sa_qr_code_str'' in o._fields and o.l10n_sa_qr_code_str) or (o.display_qr_code and o.amount_residual &gt; 0))\\"',
+    'g'
+)::jsonb
+WHERE id = 753;
+
+UPDATE ir_ui_view
+SET arch_db = regexp_replace(
+    arch_db::text,
+    't-value=\\"o\._generate_qr_code\(silent_errors=True\)\\"',
+    't-value=\\"((''l10n_sa_qr_code_str'' in o._fields and o.l10n_sa_qr_code_str) and (''/report/barcode/?barcode_type=QR&amp;value=%s&amp;width=200&amp;height=200'' % o.l10n_sa_qr_code_str) or o._generate_qr_code(silent_errors=True))\\"',
+    'g'
+)::jsonb
+WHERE id = 753;
+
 COMMIT;
