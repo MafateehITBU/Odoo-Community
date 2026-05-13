@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payroll_dashboard_warning_list_enterprise" model="ir.ui.view">
+        <field name="name">hr.payroll.dashboard.warning.list.enterprise</field>
+        <field name="model">hr.payroll.dashboard.warning</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="country_id"/>
+                <field name="sequence"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_payroll_dashboard_warning_form_enterprise" model="ir.ui.view">
+        <field name="name">hr.payroll.dashboard.warning.form.enterprise</field>
+        <field name="model">hr.payroll.dashboard.warning</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Dashboard Warning">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active"/>
+                        <field name="country_id"/>
+                        <field name="sequence"/>
+                        <field name="color"/>
+                        <field name="evaluation_code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_list_enterprise" model="ir.ui.view">
+        <field name="name">hr.payslip.list.enterprise</field>
+        <field name="model">hr.payslip</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="number"/>
+                <field name="state"/>
+                <field name="employee_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="company_id"/>
+                <field name="payslip_run_id"/>
+                <field name="move_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_form_enterprise" model="ir.ui.view">
+        <field name="name">hr.payslip.form.enterprise</field>
+        <field name="model">hr.payslip</field>
+        <field name="arch" type="xml">
+            <form string="Payslip">
+                <header>
+                    <button
+                        name="action_repost_account_move"
+                        type="object"
+                        string="Repost Accounting Entries"
+                        class="oe_highlight"
+                        invisible="not move_id"
+                    />
+                    <button
+                        name="compute_sheet"
+                        type="object"
+                        string="Compute Sheet"
+                        class="oe_highlight"
+                        invisible="state not in ('draft', 'verify')"
+                    />
+                    <button
+                        name="action_payslip_done"
+                        type="object"
+                        string="Confirm (Done)"
+                        class="oe_highlight"
+                        invisible="state != 'verify'"
+                    />
+                    <button
+                        name="action_payslip_paid"
+                        type="object"
+                        string="Mark Paid"
+                        class="oe_highlight"
+                        invisible="state != 'done'"
+                    />
+                    <button
+                        name="action_payslip_cancel"
+                        type="object"
+                        string="Cancel"
+                        invisible="state not in ('draft', 'verify')"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="number"/>
+                        <field name="state"/>
+                        <field name="company_id"/>
+                        <field name="employee_id"/>
+                        <field name="department_id"/>
+                        <field name="job_id"/>
+                        <field name="contract_id"/>
+                        <field name="payslip_run_id"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="paid_date"/>
+                        <field name="compute_date"/>
+                        <field name="paid"/>
+                        <field name="credit_note"/>
+                        <field name="move_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+

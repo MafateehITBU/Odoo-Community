@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_hr_payslip_run_enterprise" model="ir.actions.act_window">
+        <field name="name">Payslip Runs</field>
+        <field name="res_model">hr.payslip.run</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_hr_payslip_run_list_enterprise"/>
+    </record>
+
+    <menuitem
+        id="menu_hr_payslip_run_enterprise"
+        name="Payslip Runs"
+        parent="hr_payroll.menu_report_payroll"
+        action="action_hr_payslip_run_enterprise"
+        sequence="10"
+    />
+
+    <record id="action_hr_payslip_enterprise" model="ir.actions.act_window">
+        <field name="name">Payslips</field>
+        <field name="res_model">hr.payslip</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_hr_payslip_list_enterprise"/>
+    </record>
+
+    <menuitem
+        id="menu_hr_payslip_enterprise"
+        name="Payslips"
+        parent="hr_payroll.menu_report_payroll"
+        action="action_hr_payslip_enterprise"
+        sequence="20"
+    />
+
+    <record id="action_hr_payroll_dashboard_warning_enterprise" model="ir.actions.act_window">
+        <field name="name">Dashboard Warnings</field>
+        <field name="res_model">hr.payroll.dashboard.warning</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_hr_payroll_dashboard_warning_list_enterprise"/>
+    </record>
+
+    <menuitem
+        id="menu_hr_payroll_dashboard_warning_enterprise"
+        name="Dashboard Warnings"
+        parent="hr_payroll.menu_report_payroll"
+        action="action_hr_payroll_dashboard_warning_enterprise"
+        sequence="30"
+    />
+
+</odoo>
+

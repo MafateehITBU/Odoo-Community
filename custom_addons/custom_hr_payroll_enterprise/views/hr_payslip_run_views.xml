@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_run_list_enterprise" model="ir.ui.view">
+        <field name="name">hr.payslip.run.list.enterprise</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="company_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_run_form_enterprise" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.enterprise</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="arch" type="xml">
+            <form string="Payslip Run">
+                <header>
+                    <button
+                        name="generate_payslips"
+                        type="object"
+                        string="Generate Payslips"
+                        class="oe_highlight"
+                        invisible="state != 'draft'"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="state"/>
+                        <field name="company_id"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+
