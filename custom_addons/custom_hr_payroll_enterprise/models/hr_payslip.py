@@ -51,6 +51,31 @@ class HrPayslip(models.Model):
 
     move_id = fields.Many2one("account.move", ondelete="set null")
 
+    line_ids = fields.One2many("hr.payslip.line", "slip_id", string="Payslip Lines")
+    worked_days_line_ids = fields.One2many(
+        "hr.payslip.worked_days",
+        "payslip_id",
+        string="Worked Days",
+    )
+    use_worked_day_lines = fields.Boolean(compute="_compute_payslip_report_flags")
+    ytd_computation = fields.Boolean(compute="_compute_payslip_report_flags")
+
+    def _compute_payslip_report_flags(self):
+        for slip in self:
+            slip.use_worked_day_lines = bool(slip.worked_days_line_ids)
+            slip.ytd_computation = any(
+                (line.ytd or 0) for line in slip.line_ids
+            ) or any((wd.ytd or 0) for wd in slip.worked_days_line_ids)
+
+    def _is_invalid(self):
+        """Enterprise payslip PDF compatibility: warn when slip is not finalized."""
+        self.ensure_one()
+        if self.state in ("done", "paid"):
+            return False
+        return _(
+            "This payslip is not validated. This is not a legal document."
+        )
+
     def action_repost_account_move(self):
         """
         Minimal repost helper for Phase 2A: reset the linked journal entry to draft (if posted)
