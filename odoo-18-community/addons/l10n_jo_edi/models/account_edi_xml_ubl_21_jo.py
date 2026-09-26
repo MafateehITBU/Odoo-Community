@@ -419,8 +419,13 @@ class AccountEdiXmlUBL21JO(models.AbstractModel):
             'TaxTotalType_template': 'l10n_jo_edi.ubl_jo_TaxTotalType',
         })
 
-        customer = invoice.partner_id
+        # Credit notes must reuse the same buyer party as the original invoice.
+        # Sending empty/default buyer vals triggers JoFotara CORE-400-003.
         is_refund = invoice.move_type == 'out_refund'
+        customer = invoice.partner_id
+        if is_refund and invoice.reversed_entry_id:
+            customer = invoice.reversed_entry_id.partner_id
+        customer = customer.commercial_partner_id
 
         invoice._compute_l10n_jo_edi_uuid()
         vals['vals'].update({
@@ -434,12 +439,10 @@ class AccountEdiXmlUBL21JO(models.AbstractModel):
             'tax_currency_code': invoice.currency_id.name,
             'document_type_code_attrs': {'name': self._get_payment_method_code(invoice)},
             'document_type_code': "381" if is_refund else "388",
-            # Credit notes must reuse the same buyer party as the original invoice.
-            # Sending empty/default buyer vals triggers JoFotara CORE-400-003.
             'accounting_customer_party_vals': {
                 'party_vals': self._get_partner_party_vals(customer, role='customer'),
                 'accounting_contact': {
-                    'telephone': self._sanitize_phone(invoice.partner_id.phone or invoice.partner_id.mobile),
+                    'telephone': self._sanitize_phone(customer.phone or customer.mobile),
                 },
             },
             'seller_supplier_party_vals': {
